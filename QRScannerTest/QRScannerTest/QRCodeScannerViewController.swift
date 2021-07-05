@@ -11,21 +11,36 @@ import AVFoundation
 
 class QRCodeScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     
-    @IBOutlet weak var previewView: UIView!
-    @IBOutlet weak var flashButton: UIButton!
-    @IBOutlet weak var kodeQRButton: UIButton!
+    @IBOutlet weak var qrImage: UIImageView!
     
     var video = AVCaptureVideoPreviewLayer()
+    let session = AVCaptureSession()
+    var isScanOn: Bool = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "Pindai"
-        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        setup()
+    }
+    
+    private func captureDevice(forPosition position: AVCaptureDevice.Position) -> AVCaptureDevice? {
+        if #available(iOS 10.0, *) {
+            let discoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera], mediaType: .video, position: .unspecified)
+            return discoverySession.devices.first { $0.position == position }
+        }
+        return nil
+    }
+    
+    private func setup() {
         //Creating Session
-        let session = AVCaptureSession()
         
         //Define Capture Device
-        guard let captureDevice = AVCaptureDevice.default(for: .video) else { return }
+        let cameraPosition: AVCaptureDevice.Position = .front
+        guard let captureDevice = self.captureDevice(forPosition: cameraPosition) else { return }
         
         do {
             let input = try AVCaptureDeviceInput(device: captureDevice)
@@ -46,74 +61,22 @@ class QRCodeScannerViewController: UIViewController, AVCaptureMetadataOutputObje
         video.videoGravity = .resizeAspectFill
         view.layer.addSublayer(video)
         
-        kodeQRButton.backgroundColor = UIColor.rgb(red: 58, green: 184, blue: 160)
-        flashButton.layer.cornerRadius = flashButton.frame.height / 2
-        
-        view.bringSubviewToFront(previewView)
-        view.bringSubviewToFront(flashButton)
-        view.bringSubviewToFront(kodeQRButton)
+        view.bringSubviewToFront(qrImage)
         
         session.startRunning()
     }
-    @IBAction func flashButton(_ sender: UIButton) {
-        guard let device = AVCaptureDevice.default(for: AVMediaType.video) else { return }
-        guard device.hasTorch else { return }
-        
-        do {
-            try device.lockForConfiguration()
-            
-            if (device.torchMode == AVCaptureDevice.TorchMode.on) {
-                device.torchMode = AVCaptureDevice.TorchMode.off
-//                flashButton.setImage(R.image.flashOut(), for: .normal)
-            } else {
-                do {
-                    try device.setTorchModeOn(level: 1.0)
-//                    flashButton.setImage(R.image.flashIn(), for: .normal)
-                } catch {
-                    print(error)
-                }
-            }
-            
-            device.unlockForConfiguration()
-        } catch {
-            print(error)
-        }
-    }
     
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
-        if metadataObjects != nil && metadataObjects.count != 0{
+        if metadataObjects.count != 0 && metadataObjects.count == 1{
             if let object = metadataObjects[0] as? AVMetadataMachineReadableCodeObject {
                 if object.type == .qr {
-                    let alert = UIAlertController(title: "QR Code", message: object.stringValue, preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "Open", style: .default, handler: { (nil) in
-                        let application = UIApplication.shared
-                        let appUrl = URL(string: object.stringValue!)
-                        if #available(iOS 11.0, *){
-                            application.open(appUrl!, options: [:], completionHandler: nil)
-                        } else {
-                            if application.canOpenURL(appUrl! as URL){
-                                application.openURL(appUrl! as URL)
-                            }
-                        }
-//                        application.open(appUrl!, options: [:], completionHandler: nil)
-                    }))
-                    alert.addAction(UIAlertAction(title: "Retake", style: .default, handler: nil))
-                    alert.addAction(UIAlertAction(title: "Copy", style: .default, handler: { (nil) in
-                        UIPasteboard.general.string = object.stringValue
-                    }))
-                    present(alert, animated: true, completion: nil)
+                    let vc = QRCodeView()
+                    navigationController?.pushViewController(vc, animated: true)
+                    self.isScanOn = false
+                    session.stopRunning()
                 }
             }
         }
-    }
-    
-    @IBAction func kodeQRButton(_ sender: UIButton) {
-        let modal = QRCodeView()
-        
-        modal.modalPresentationStyle = .overCurrentContext
-        modal.modalTransitionStyle = .crossDissolve
-        
-        navigationController?.present(modal, animated: true, completion: nil)
     }
 }
 
