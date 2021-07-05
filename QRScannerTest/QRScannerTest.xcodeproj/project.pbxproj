@@ -11,10 +11,10 @@
 		8B527887269154A200E3BA54 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B527886269154A200E3BA54 /* SceneDelegate.swift */; };
 		8B52788E269154A400E3BA54 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8B52788D269154A400E3BA54 /* Assets.xcassets */; };
 		8B527891269154A400E3BA54 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8B52788F269154A400E3BA54 /* LaunchScreen.storyboard */; };
-		8B52789C2691983700E3BA54 /* QRCodeScannerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B5278982691983700E3BA54 /* QRCodeScannerView.xib */; };
-		8B52789D2691983700E3BA54 /* QRCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5278992691983700E3BA54 /* QRCodeView.swift */; };
-		8B52789E2691983700E3BA54 /* QRCodeScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B52789A2691983700E3BA54 /* QRCodeScannerViewController.swift */; };
-		8B52789F2691983700E3BA54 /* QRCodeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B52789B2691983700E3BA54 /* QRCodeView.xib */; };
+		8B7181A52692A62500398E7F /* QRCodeScannerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B7181A12692A62500398E7F /* QRCodeScannerView.xib */; };
+		8B7181A62692A62500398E7F /* QRCodeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B7181A22692A62500398E7F /* QRCodeView.xib */; };
+		8B7181A72692A62500398E7F /* QRCodeScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B7181A32692A62500398E7F /* QRCodeScannerViewController.swift */; };
+		8B7181A82692A62500398E7F /* QRCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B7181A42692A62500398E7F /* QRCodeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,10 +24,10 @@
 		8B52788D269154A400E3BA54 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8B527890269154A400E3BA54 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8B527892269154A400E3BA54 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8B5278982691983700E3BA54 /* QRCodeScannerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = QRCodeScannerView.xib; path = "../../../Hario Code/Scanner/QRCodeScannerView.xib"; sourceTree = "<group>"; };
-		8B5278992691983700E3BA54 /* QRCodeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = QRCodeView.swift; path = "../../../Hario Code/Scanner/QRCodeView.swift"; sourceTree = "<group>"; };
-		8B52789A2691983700E3BA54 /* QRCodeScannerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = QRCodeScannerViewController.swift; path = "../../../Hario Code/Scanner/QRCodeScannerViewController.swift"; sourceTree = "<group>"; };
-		8B52789B2691983700E3BA54 /* QRCodeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = QRCodeView.xib; path = "../../../Hario Code/Scanner/QRCodeView.xib"; sourceTree = "<group>"; };
+		8B7181A12692A62500398E7F /* QRCodeScannerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QRCodeScannerView.xib; sourceTree = "<group>"; };
+		8B7181A22692A62500398E7F /* QRCodeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QRCodeView.xib; sourceTree = "<group>"; };
+		8B7181A32692A62500398E7F /* QRCodeScannerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRCodeScannerViewController.swift; sourceTree = "<group>"; };
+		8B7181A42692A62500398E7F /* QRCodeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRCodeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,10 +62,10 @@
 			children = (
 				8B527884269154A200E3BA54 /* AppDelegate.swift */,
 				8B527886269154A200E3BA54 /* SceneDelegate.swift */,
-				8B52789A2691983700E3BA54 /* QRCodeScannerViewController.swift */,
-				8B5278982691983700E3BA54 /* QRCodeScannerView.xib */,
-				8B5278992691983700E3BA54 /* QRCodeView.swift */,
-				8B52789B2691983700E3BA54 /* QRCodeView.xib */,
+				8B7181A32692A62500398E7F /* QRCodeScannerViewController.swift */,
+				8B7181A42692A62500398E7F /* QRCodeView.swift */,
+				8B7181A12692A62500398E7F /* QRCodeScannerView.xib */,
+				8B7181A22692A62500398E7F /* QRCodeView.xib */,
 				8B52788D269154A400E3BA54 /* Assets.xcassets */,
 				8B52788F269154A400E3BA54 /* LaunchScreen.storyboard */,
 				8B527892269154A400E3BA54 /* Info.plist */,
@@ -131,8 +131,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				8B527891269154A400E3BA54 /* LaunchScreen.storyboard in Resources */,
-				8B52789C2691983700E3BA54 /* QRCodeScannerView.xib in Resources */,
-				8B52789F2691983700E3BA54 /* QRCodeView.xib in Resources */,
+				8B7181A52692A62500398E7F /* QRCodeScannerView.xib in Resources */,
+				8B7181A62692A62500398E7F /* QRCodeView.xib in Resources */,
 				8B52788E269154A400E3BA54 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -144,8 +144,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8B52789D2691983700E3BA54 /* QRCodeView.swift in Sources */,
-				8B52789E2691983700E3BA54 /* QRCodeScannerViewController.swift in Sources */,
+				8B7181A82692A62500398E7F /* QRCodeView.swift in Sources */,
+				8B7181A72692A62500398E7F /* QRCodeScannerViewController.swift in Sources */,
 				8B527885269154A200E3BA54 /* AppDelegate.swift in Sources */,
 				8B527887269154A200E3BA54 /* SceneDelegate.swift in Sources */,
 			);
