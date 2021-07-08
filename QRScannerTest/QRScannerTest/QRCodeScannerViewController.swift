@@ -18,6 +18,8 @@ class QRCodeScannerViewController: UIViewController, AVCaptureMetadataOutputObje
     var isScanOn: Bool = true
     var image: UIImage?
     
+    var currentBrightness: CGFloat = 0
+    
     lazy var sessionQueue = DispatchQueue(label: "test")
     var stillImageOutput = AVCapturePhotoOutput()
     
@@ -28,11 +30,15 @@ class QRCodeScannerViewController: UIViewController, AVCaptureMetadataOutputObje
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
         setup()
+        self.currentBrightness = UIScreen.main.brightness
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        
+        UIScreen.main.brightness = self.currentBrightness
         stopSession()
     }
     
@@ -75,39 +81,6 @@ class QRCodeScannerViewController: UIViewController, AVCaptureMetadataOutputObje
         session.startRunning()
     }
     
-    func setupLivePreview() {
-        video = AVCaptureVideoPreviewLayer(session: session)
-        video.frame = view.layer.bounds
-        video.videoGravity = .resizeAspectFill
-        view.layer.addSublayer(video)
-        
-        DispatchQueue.global(qos: .userInitiated).async {
-            self.session.startRunning()
-            DispatchQueue.main.async {
-                self.view.bringSubviewToFront(self.qrImage)
-            }
-        }
-    }
-    
-    private func startSession() {
-        session.sessionPreset = .medium
-        
-        let cameraPosition: AVCaptureDevice.Position = .front
-        guard let captureDevice = self.captureDevice(forPosition: cameraPosition) else { return }
-        
-        do {
-            let input = try AVCaptureDeviceInput(device: captureDevice)
-            
-            if session.canAddInput(input) && session.canAddOutput(stillImageOutput) {
-                session.addInput(input)
-                session.addOutput(stillImageOutput)
-                setupLivePreview()
-            }
-        } catch let error {
-            print(error.localizedDescription)
-        }
-    }
-    
     private func stopSession() {
         weak var weakSelf = self
         sessionQueue.async {
@@ -125,8 +98,12 @@ class QRCodeScannerViewController: UIViewController, AVCaptureMetadataOutputObje
                 if object.type == .qr {
                     session.addOutput(stillImageOutput)
                     
-                    let settings = AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.jpeg])
-                    stillImageOutput.capturePhoto(with: settings, delegate: self)
+                    UIScreen.main.brightness = 1
+                    
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) {
+                        let settings = AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.jpeg])
+                        self.stillImageOutput.capturePhoto(with: settings, delegate: self)
+                    }
                 }
             }
         }
