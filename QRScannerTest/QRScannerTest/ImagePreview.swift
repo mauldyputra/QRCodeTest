@@ -11,7 +11,12 @@ class ImagePreview: UIViewController {
 
     @IBOutlet weak var imagePreview: UIImageView!
     
+    var image: UIImage?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.navigationItem.title = "Hasil Foto"
+        self.imagePreview.image = image
     }
 }
